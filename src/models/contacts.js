@@ -22,6 +22,10 @@ const contactsSchema = new mongoose.Schema({
         requred: true,
         default: 'personal'
     },
-});
+    },
+        {
+            timestamps: true,
+        },
+);
 
-export const Contact = mongoose.model('Contact', contactsSchema);
+export const Contact = mongoose.model('Contacts', contactsSchema);
