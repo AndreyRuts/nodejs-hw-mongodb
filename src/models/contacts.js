@@ -22,6 +22,10 @@ const contactsSchema = new mongoose.Schema({
         requred: true,
         default: 'personal'
     },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        requred: true
+    },
     },
         {
             timestamps: true,

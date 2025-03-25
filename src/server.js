@@ -1,6 +1,7 @@
 import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 import rootRouter from './routers/index.js';
 import { getEnvVar } from './utils/getEnvVar.js';
@@ -12,6 +13,7 @@ const PORT = Number(getEnvVar('PORT', '3000'));
 const server = express();
 server.use(express.json());
 server.use(cors());
+server.use(cookieParser());
 server.use(pino({
         transport: {
             target: 'pino-pretty',

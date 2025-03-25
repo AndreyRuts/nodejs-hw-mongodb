@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import createHttpError from "http-errors";
 import bcrypt from 'bcrypt';
 
@@ -30,10 +31,37 @@ export const loginUser = async (email, password) => {
     await Session.deleteOne({ userId: userData._id });
     return Session.create({
         userId: userData._id,
-        accessToken: 'access token',
-        refreshToken: 'refresh token',
-        accessTokenValidUntil: new Date(),
-        refreshTokenValidUntil: new Date()
+        accessToken: crypto.randomBytes(30).toString('base64'),
+        refreshToken: crypto.randomBytes(30).toString('base64'),
+        accessTokenValidUntil: new Date(Date.now() + 15 * 60 * 1000),
+        refreshTokenValidUntil: new Date(Date.now() + 24 * 60 * 60 * 30 * 1000)
     });
 
+};
+
+export const refreshSession = async (sessionId, refreshToken) => {
+    const currentSession = await Session.findOne({ _id: sessionId, refreshToken });
+
+    if (currentSession === null) {
+        throw createHttpError.Unauthorized('Session not found');
+    }
+    if (currentSession.refreshTokenValidUntil < new Date()) {
+        throw createHttpError.Unauthorized('Refresh token is expired');
+    }
+    await Session.deleteOne({
+        _id: currentSession._id,
+        refreshToken: currentSession.refreshToken
+    });
+    return Session.create({
+        userId: currentSession.userId,
+        accessToken: crypto.randomBytes(30).toString('base64'),
+        refreshToken: crypto.randomBytes(30).toString('base64'),
+        accessTokenValidUntil: new Date(Date.now() + 15 * 60 * 1000),
+        refreshTokenValidUntil: new Date(Date.now() + 24 * 60 * 60 * 1000)
+    });
+};
+
+export const logoutUser = async (sessionId, refreshToken) => {
+    await Session.deleteOne({ _id: sessionId, refreshToken });
+    return undefined;
 };
