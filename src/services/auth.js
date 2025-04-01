@@ -41,14 +41,14 @@ export const loginUser = async (email, password) => {
         throw createHttpError.Unauthorized('Email or password is incorrect');
     }
 
-    await Session.deleteOne({ userId: userData._id });// !!!! CHAGE ON 15
+    await Session.deleteOne({ userId: userData._id });
     return Session.create({
         userId: userData._id,
         accessToken: crypto.randomBytes(30).toString('base64'),
         refreshToken: crypto.randomBytes(30).toString('base64'),
-        accessTokenValidUntil: new Date(Date.now() + 150 * 60 * 1000), // !!!! CHAGE ON 15
+        accessTokenValidUntil: new Date(Date.now() + 15 * 60 * 1000),
         refreshTokenValidUntil: new Date(Date.now() + 24 * 60 * 60 * 30 * 1000)
-    });// !!!! CHAGE ON 15
+    });
 
 };
 
@@ -96,7 +96,6 @@ export const requestResetPassword = async (email) => {
 
     await sendEmail(email, 'Reset your password',
         template({domain ,resetToken})
-        // `<h1>Follow this <a href='${getEnvVar('APP_DOMAIN')}/reset-pwd?token=${resetToken}'>link</a> to reset password</h1>`
     );
 };
 

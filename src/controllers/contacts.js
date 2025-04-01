@@ -55,18 +55,20 @@ export const getContactsByIdController = async (req, res) => {
 };
 
 export const createContactController = async (req, res) => {
-    if (getEnvVar('UPLOAD_TO_CLOUDINARY' === 'true')) {
-        const result = uploadToCloudinary(req.file.path);
-        console.log(result);
-        
+    let photo = null;
+
+    if (getEnvVar('UPLOAD_TO_CLOUDINARY') === 'true') {
+        const result = await uploadToCloudinary(req.file.path);
+        photo = result.secure_url;  
     } else {
         await fs.rename(req.file.path, path.resolve('src', 'uploads', req.file.filename));
+        photo = `http://localhost:3000/uploads/${req.file.filename}`;
     }
 
     const contact = {
         ...req.body,
         userId: req.user.id,
-        photo: req.file.filename
+        photo
     };
     
     const newContact = await createContact(contact);

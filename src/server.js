@@ -2,6 +2,7 @@ import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import path from 'node:path';
 
 import rootRouter from './routers/index.js';
 import { getEnvVar } from './utils/getEnvVar.js';
@@ -11,6 +12,7 @@ import { errorHandler } from './middlewares/errorHandler.js';
 
 const PORT = Number(getEnvVar('PORT', '3000'));
 const server = express();
+server.use('/uploads' ,express.static(path.resolve('src', 'uploads')));
 server.use(express.json());
 server.use(cors());
 server.use(cookieParser());
