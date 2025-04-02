@@ -46,7 +46,7 @@ export const loginUser = async (email, password) => {
         userId: userData._id,
         accessToken: crypto.randomBytes(30).toString('base64'),
         refreshToken: crypto.randomBytes(30).toString('base64'),
-        accessTokenValidUntil: new Date(Date.now() + 150 * 60 * 1000), // DAD!!!!DASDASD!D!QASD!
+        accessTokenValidUntil: new Date(Date.now() + 15 * 60 * 1000),
         refreshTokenValidUntil: new Date(Date.now() + 24 * 60 * 60 * 30 * 1000)
     });
 
