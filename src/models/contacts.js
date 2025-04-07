@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const contactsSchema = new mongoose.Schema({
     name: {
         type: String,
-        requred: true
+        required: true
     },
     phoneNumber: {
         type: String,
-        requred: true
+        required: true
     },
     email: {
         type: String
@@ -19,12 +19,12 @@ const contactsSchema = new mongoose.Schema({
     contactType: {
         type: String,
         enum: ['work', 'home', 'personal'],
-        requred: true,
+        required: true,
         default: 'personal'
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        requred: true
+        required: true
     },
     photo: {
         type: String,

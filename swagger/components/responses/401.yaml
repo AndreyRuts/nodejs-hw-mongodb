@@ -21,4 +21,4 @@ content:
           properties:
             message:
               type: string
-              example: Acces token not provided
+              example: Access token not provided

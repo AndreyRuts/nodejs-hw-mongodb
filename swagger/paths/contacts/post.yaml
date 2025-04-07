@@ -1,0 +1,74 @@
+tags:
+  - Contacts
+summary: Create contact
+operationId: createContact
+description: Create contact
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - name
+          - phoneNumber
+          - contactType
+        properties:
+          name:
+            description: Contact name
+            type: string
+            example: John doe
+          phoneNumber:
+            description: Contact phone number
+            type: string
+            example: +380634569900
+          contactType:
+            description: Type of contact
+            type: string
+            enum: ['work', 'home', 'personal']
+            default: personal
+            example: personal
+          email:
+            description: Contact's email
+            type: string
+            example: qweqwe123@mail.com
+          isFavourite:
+            description: Contact priority
+            type: boolean
+            default: false
+            example: false
+          # userId:
+          #   description: ID for contact owner
+          #   type: string
+          #   example: 67f3b2d4881906f131d4c47f
+          photo:
+            description: Contact photo
+            type: string
+            example: https://res.cloudinary.com/dve4igtw1/image/upload/v1743615028/xz3hlzlrhi9kebrt72bj.jpg
+            default: null
+            format: binary
+responses:
+  '201':
+    description: Create a contact
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a contact
+            data:
+              $ref: ../../components/schemas/contact.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml

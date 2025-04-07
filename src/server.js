@@ -3,15 +3,19 @@ import pino from 'pino-http';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import path from 'node:path';
+import swaggerUIExpress from 'swagger-ui-express';
+import * as fs from 'node:fs';
 
 import rootRouter from './routers/index.js';
 import { getEnvVar } from './utils/getEnvVar.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 
-
+const swaggerDocument = JSON.parse(fs.readFileSync(path.resolve('docs', 'swagger.json'), 'utf-8'));
 const PORT = Number(getEnvVar('PORT', '3000'));
 const server = express();
+
+server.use('/api-docs', swaggerUIExpress.serve, swaggerUIExpress.setup(swaggerDocument));
 server.use('/uploads' ,express.static(path.resolve('src', 'uploads')));
 server.use(express.json());
 server.use(cors());
