@@ -6,13 +6,16 @@ import {
     logoutController,
     refreshController,
     requestPasswordResetController,
-    resetPasswordController
+    resetPasswordController,
+    getOauthUrlController,
+    confirmOAuthController
 } from '../controllers/auth.js';
 import {
     registerSchema,
     loginSchema,
     requestPasswordResetSchema,
-    resetPasswordSchema
+    resetPasswordSchema,
+    confirmOAuthSchema
 } from '../validation/userAuth.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
@@ -39,7 +42,15 @@ authRouter.post(
 authRouter.post(
     '/reset-pwd',
     validateBody(resetPasswordSchema),
-    ctrlWrapper(resetPasswordController));
+    ctrlWrapper(resetPasswordController)
+);
+authRouter.get('/get-oauth-url', ctrlWrapper(getOauthUrlController));
+authRouter.post(
+    '/confirm-oauth',
+    validateBody(confirmOAuthSchema),
+    ctrlWrapper(confirmOAuthController));
+
+
 
 export default authRouter;
 
