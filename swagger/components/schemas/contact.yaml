@@ -1,56 +1,58 @@
-type: object
-required:
-  - _id
-  - name
-  - phoneNumber
-  - contactType
-  - userId
-  - createdAt
-  - updatedAt
-properties:
-  _id:
-    type: string
-    description: Contact id
-    example: 67f3b2d4881906f131d4c47f
-  name:
-    type: string
-    description: Contact name
-    example: John doe
-  phoneNumber:
-    type: string
-    description: Contact phone phone number
-    example: +380504352670
-  contactType:
-    type: string
-    description: Contact type
-    enum: ['work', 'home', 'personal']
-    example: personal
-    default: personal
-  userId:
-    type: string
-    description: Contact owner id
-    example: 67f3baf616312173e5b48f18
-  email:
-    type: string
-    description: Contact email
-    example: jd431@gmail.com
-  photo:
-    type: string
-    description: Contact photo
-    example: https://res.cloudinary.com/dve4igtw1/image/upload/v1743615028/xz3hlzlrhi9kebrt72bj.jpg
-    default: null
-  isFavourite:
-    type: boolean
-    description: Contact priority
-    example: false
-    default: false
-  createdAt:
-    type: string
-    format: date-time
-    description: Contact creation date
-    example: 2024-05-08T16:12:14.954168
-  updatedAt:
-    type: string
-    format: date-time
-    description: Contact update date
-    example: 2025-03-19T09:03:30.597+00:00
+type: array
+items:
+  type: object
+  required:
+    - _id
+    - name
+    - phoneNumber
+    - contactType
+    - userId
+    - createdAt
+    - updatedAt
+  properties:
+    _id:
+      type: string
+      description: Contact id
+      example: 67f3b2d4881906f131d4c47f
+    name:
+      type: string
+      description: Contact name
+      example: John doe
+    phoneNumber:
+      type: string
+      description: Contact phone phone number
+      example: +380504352670
+    contactType:
+      type: string
+      description: Contact type
+      enum: ['work', 'home', 'personal']
+      example: personal
+      default: personal
+    userId:
+      type: string
+      description: Contact owner id
+      example: 67f3baf616312173e5b48f18
+    email:
+      type: string
+      description: Contact email
+      example: jd431@gmail.com
+    photo:
+      type: string
+      description: Contact photo
+      example: https://res.cloudinary.com/dve4igtw1/image/upload/v1743615028/xz3hlzlrhi9kebrt72bj.jpg
+      default: null
+    isFavourite:
+      type: boolean
+      description: Contact priority
+      example: false
+      default: false
+    createdAt:
+      type: string
+      format: date-time
+      description: Contact creation date
+      example: 2024-05-08T16:12:14.954168
+    updatedAt:
+      type: string
+      format: date-time
+      description: Contact update date
+      example: 2025-03-19T09:03:30.597+00:00

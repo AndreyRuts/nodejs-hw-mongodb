@@ -41,16 +41,12 @@ requestBody:
             type: boolean
             default: false
             example: false
-          # userId:
-          #   description: ID for contact owner
-          #   type: string
-          #   example: 67f3b2d4881906f131d4c47f
-          # photo:
-          #   description: Contact photo
-          #   type: string
-          #   example: https://res.cloudinary.com/dve4igtw1/image/upload/v1743615028/xz3hlzlrhi9kebrt72bj.jpg
-          #   default: null
-          #   format: binary
+          photo:
+            description: Contact photo
+            type: string
+            example: https://res.cloudinary.com/dve4igtw1/image/upload/v1743615028/xz3hlzlrhi9kebrt72bj.jpg
+            default: null
+            format: binary
 responses:
   '200':
     description: Patch contact by id
